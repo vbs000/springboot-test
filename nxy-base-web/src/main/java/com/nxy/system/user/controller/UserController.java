@@ -1,5 +1,7 @@
 package com.nxy.system.user.controller;
 
+import com.nxy.result.ResultUtils;
+import com.nxy.result.ResultVo;
 import com.nxy.system.user.entity.SysUser;
 import com.nxy.system.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +22,8 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/getList")
-    public List<SysUser> getList(){
-        return userService.list();
+    public ResultVo getList(){
+        List<SysUser> list = userService.list();
+        return ResultUtils.success("查询成功",list);
     }
 }
