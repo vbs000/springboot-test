@@ -1,12 +1,16 @@
 package com.nxy.system.user.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -17,7 +21,7 @@ import java.util.Date;
  */
 @Data
 @TableName("sys_user")
-public class SysUser implements Serializable {
+public class SysUser implements Serializable, UserDetails {
     //主键自动增长
     @TableId(type = IdType.AUTO)
     private Long id;
@@ -36,8 +40,8 @@ public class SysUser implements Serializable {
     //帐户是否可用(1 可用，0 删除用户)
     private boolean isEnabled = true;
     //由于authorities不是数据库里面的自动，所以要排除他，不然mybatis-plus找不到该字段会报错
-//    @TableField(exist = false)
-//    Collection<? extends GrantedAuthority> authorities;
+    @TableField(exist = false)
+    Collection<? extends GrantedAuthority> authorities;
     //昵称
     private String nickName;
     //手机号
