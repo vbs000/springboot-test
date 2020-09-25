@@ -10,11 +10,11 @@ public interface PermissionService extends IService<Permission> {
      * @param userId
      * @return
      */
-    List<Permission> selectPermissionByUserId(Long userId);
+    List<Permission> getPermissionListByUserId(Long userId);
     /**
      * 根据角色id查询所有的权限
      * @param roleId
      * @return
      */
-    List<Permission> findByRoleId(Long roleId);
+    List<Permission> getPermissionListByRoleId(Long roleId);
 }

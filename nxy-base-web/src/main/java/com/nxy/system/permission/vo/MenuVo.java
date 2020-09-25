@@ -1,9 +1,10 @@
 package com.nxy.system.permission.vo;
 
+import com.nxy.system.permission.entity.Permission;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.security.Permission;
+
 import java.util.List;
 
 /**
@@ -11,9 +12,9 @@ import java.util.List;
  */
 @Data
 public class MenuVo implements Serializable {
-//    private List<Permission> menuList;
-//    private List<String> authList;
-//    private List<Permission> routerList;
+    private List<Permission> menuList;
+    private List<String> authList;
+    private List<Permission> routerList;
     private String token;
     private Long userId;
 }

@@ -12,12 +12,12 @@ import java.util.List;
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper,Permission> implements PermissionService {
     @Override
     // @Cacheable(value = "permissions",key = "#userId")
-    public List<Permission> selectPermissionByUserId(Long userId) {
+    public List<Permission> getPermissionListByUserId(Long userId) {
         return this.baseMapper.getPermissionListByUserId(userId);
     }
     @Override
     // @Cacheable(value = "permissions",key = "#roleId")
-    public List<Permission> findByRoleId(Long roleId) {
+    public List<Permission> getPermissionListByRoleId(Long roleId) {
         return this.baseMapper.getPermissionListByRoleId(roleId);
     }
 }
