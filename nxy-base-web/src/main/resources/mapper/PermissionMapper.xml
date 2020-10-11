@@ -2,7 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nxy.system.permission.mapper.PermissionMapper">
-    <select parameterType="long" id="selectPermissionByUserId"
+    <select parameterType="long" id="getPermissionListByUserId"
             resultType="com.nxy.system.permission.entity.Permission">
         SELECT DISTINCT
         p.id,
@@ -29,7 +29,7 @@
         u.id = #{userId}
         ORDER BY p.order_num ASC
     </select>
-    <select id="findByRoleId"
+    <select id="getPermissionListByRoleId"
             resultType="com.nxy.system.permission.entity.Permission">
         SELECT
         DISTINCT p.*

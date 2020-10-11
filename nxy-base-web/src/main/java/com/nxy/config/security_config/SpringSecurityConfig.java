@@ -1,6 +1,7 @@
 package com.nxy.config.security_config;
 
 import com.nxy.security.detail_service.CustomerUserDetailsService;
+import com.nxy.security.filte.CheckTokenFilter;
 import com.nxy.security.handler.CustomAccessDeineHandler;
 import com.nxy.security.handler.CustomizeAuthenticationEntryPoint;
 import com.nxy.security.handler.LoginFailureHandler;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Spring Security配置类
@@ -32,6 +34,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private LoginFailureHandler loginFailureHandler;
     @Autowired
     private LoginSuccessHandler loginSuccessHandler;
+    @Autowired
+    private CheckTokenFilter checkTokenFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -56,7 +60,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http
+                .addFilterBefore(checkTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin()
             .loginProcessingUrl("/api/user/login")
             .successHandler(loginSuccessHandler)
             .failureHandler(loginFailureHandler)
@@ -65,7 +71,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
             .authorizeRequests()
-            .antMatchers("/api/user/login").permitAll()
+            .antMatchers("/api/user/login","/api/user/image").permitAll()
             .anyRequest().authenticated()
         .and()
             .exceptionHandling()

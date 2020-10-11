@@ -3,6 +3,7 @@ package com.nxy.security.handler;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.nxy.result.ResultUtils;
+import com.nxy.security.image_code.ImageCodeException;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -39,6 +40,9 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             str = "账户被锁，登录失败！";
         }else if(e instanceof InternalAuthenticationServiceException){
             str = "账户不存在，登录失败！";
+        }else if(e instanceof ImageCodeException){
+            //验证码异常
+            str = e.getMessage();
         }else{
             str = "登录失败！";
         }
