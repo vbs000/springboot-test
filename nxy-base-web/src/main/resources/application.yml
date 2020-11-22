@@ -17,3 +17,4 @@ jwt:
   expiration: 300000
 nxy:
   loginUrl: /api/user/login
+  imgUrl: /api/user/image
