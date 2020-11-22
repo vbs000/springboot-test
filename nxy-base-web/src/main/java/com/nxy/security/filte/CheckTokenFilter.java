@@ -71,11 +71,11 @@ public class CheckTokenFilter extends OncePerRequestFilter {
     private void validateToken(HttpServletRequest request){
         //获取前端传来的token
         String token = request.getHeader("token");
-        Enumeration<String> headerNames = request.getHeaderNames();
-        System.out.println("headers:");
-        while(headerNames.hasMoreElements()){
-            System.out.println(headerNames.nextElement());
-        }
+//        Enumeration<String> headerNames = request.getHeaderNames();
+//        System.out.println("headers:");
+//        while(headerNames.hasMoreElements()){
+//            System.out.println(headerNames.nextElement());
+//        }
         //解析token，获取用户名
         String username = jwtUtils.getUsernameFromToken(token);
         //如果token为空，或者查询token中的用户名不存在的话
