@@ -47,10 +47,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         List<String> auth = permissionList.stream().filter(item -> item != null).map(item -> item.getCode()).collect(Collectors.toList());
         vo.setAuthList(auth);
         //4.生成菜单数据树
-        List<Permission> permissions = permissionList.stream().filter(item -> item != null && item.getType() != "2").collect(Collectors.toList());
+        List<Permission> permissions = permissionList.stream().filter(item -> item != null && !"2".equals(item.getType())).collect(Collectors.toList());
         List<Permission> menuList = MakeMenuTree.makeTree(permissions, 0L);
         vo.setMenuList(menuList);
-        List<Permission> routeList = permissionList.stream().filter(item -> item != null && item.getType() == "1").collect(Collectors.toList());
+        List<Permission> routeList = permissionList.stream().filter(item -> item != null && "1".equals(item.getType()) ).collect(Collectors.toList());
         vo.setRouterList(routeList);
         //5.查询路由的url
         String res = JSONObject.toJSONString(ResultUtils.success("认证成功",vo), SerializerFeature.DisableCircularReferenceDetect);
