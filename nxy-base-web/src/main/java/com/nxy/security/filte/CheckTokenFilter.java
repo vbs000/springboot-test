@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -88,6 +89,9 @@ public class CheckTokenFilter extends OncePerRequestFilter {
         }
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        if(!userDetails.getPassword().equals(authenticationToken.getCredentials().toString())) {
+            throw new BadCredentialsException("密码错误");
+        }
         //设置为已登录
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
